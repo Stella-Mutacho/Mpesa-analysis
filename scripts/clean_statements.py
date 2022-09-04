@@ -30,7 +30,7 @@ class Cleaner():
         df= df.drop(columns, axis=1)
 
         return df 
-    def convert_to(df,columns, data_type):
+    def convert_to(self, df,columns, data_type):
         '''
         Convert Columns to desired data types.
         '''
