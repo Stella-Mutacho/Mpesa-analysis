@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS mpesa_flow;
+CREATE TABLE IF NOT EXISTS mpesa_flow (receipt_no VARCHAR NOT NULL PRIMARY KEY, completion_time DATETIME NOT NULL, paid_in FLOAT NOT NULL, withdrawn FLOAT NOT NULL,balance FLOAT NOT NULL, transaction_type TEXT NOT NULL);
