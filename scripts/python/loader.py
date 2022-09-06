@@ -1,6 +1,8 @@
 import os
-import psycopg2
+
 import pandas as pd
+import psycopg2
+
 
 class Loader():
     def __init__(self):
