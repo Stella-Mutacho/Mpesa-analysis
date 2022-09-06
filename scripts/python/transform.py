@@ -24,11 +24,7 @@ class Extractor:
 
     def __init__(self):
         pass
-    def pdf_to_csv(self,pdfstatement,filename):
-        # convert PDF into CSV
-        tabula.convert_into(pdfstatement, filename, output_format="csv", pages='all')
-    
-    
+        
     def load_csv(self, path):
         """
         Function to Load csv file.
@@ -39,6 +35,29 @@ class Extractor:
         """
         df = pd.read_csv(path)
         return df
+    def read_summary(self,path):
+        summary= pd.read_csv('../data/mpesaData.csv', index_col = False,  nrows=11)
+        summary.drop('Unnamed: 3', axis=1, inplace=True)
+    def get_summary_path(self, fetch_date):
+        """
+        This function constructs a filename to be used 
+        Params:
+            fetch_date: str
+                The date the mpesa statement was downloaded from mpesa app
+        Returns:
+            filepath: os.Path
+                The path to the file
+                """        
+        filename = "mpesa_summary{}.csv".format(fetch_date)
+        return os.path.join("~/data/", filename)
+    def convert_correctDtypes(self,Data):
+        Data['Paid in']= Data['Paid in'].str.replace(',', '').astype(float)
+        Data['Withdraw\rn']= Data['Withdraw\rn'].str.replace(',', '').astype(float)
+        Data['Balance']= Data['Balance'].str.replace(',', '').astype(float)
+        Data['Completion Time']=pd.to_datetime(Data['Completion Time'])
+        cleaner.convert_to(Data, ['Receipt No','Transaction Type'], str)
+        return Data
+
     def transform_raw_data(self, raw_data_df):
         """
             This function transforms the raw dataset extracted from the web into a dataframe that can be easily loaded the database    
@@ -81,14 +100,9 @@ class Extractor:
             detsA.append(category)
         Clean_data['Transaction Type']=detsA
         Data= cleaner.drop_columns(Clean_data,['Transaction Status','Details'])
+        Data=self.convert_correctDtypes(Data)
         return Data
-    def convert_correctDtypes(self,Data):
-        Data['Paid in']= Data['Paid in'].str.replace(',', '').astype(float)
-        Data['Withdraw\rn']= Data['Withdraw\rn'].str.replace(',', '').astype(float)
-        Data['Balance']= Data['Balance'].str.replace(',', '').astype(float)
-        Data['Completion Time']=pd.to_datetime(Data['Completion Time'])
-        cleaner.convert_to(Data, ['Receipt No','Transaction Type'], str)
-        return Data
+    
 
     def get_file_path(self, fetch_date):
         """
@@ -106,3 +120,6 @@ class Extractor:
     def save_df(self, df, filename):
         df.to_csv(filename)
         print('Successfully saved')
+
+
+        
