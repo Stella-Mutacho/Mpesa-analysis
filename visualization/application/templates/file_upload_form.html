@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+<body>  
+    <form style= "float:left" action = "/success" method = "post" enctype="multipart/form-data">  
+        <input type="file" name="file" />  
+        <input type = "submit" value="Upload">  
+        
+    </form>  
+    <form action = "/success" method = "post" enctype="multipart/form-data">  
+        
+        <input style= "float:right" type = "submit" value="Generate Statement">  
+    </form>  
+</body>  
+
+{% endblock %}
