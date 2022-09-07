@@ -5,9 +5,14 @@ import json
 import plotly
 import plotly.express as px
 import os
+from flask import request
+import sys
+
 
 IMAGE_FOLDER= os.path.join('static', 'images')
+DATA_FOLDER=os.path.join("../../data/")
 app.config['UPLOAD_FOLDER']=IMAGE_FOLDER
+app.config['DATA_FOLDER']=DATA_FOLDER
 
 
 @app.route('/')
@@ -36,3 +41,17 @@ def chart1():
 
     return render_template('index.html', user_image=graph1)
 
+@app.route('/upload')  
+def upload():  
+    return render_template("file_upload_form.html")  
+ 
+@app.route('/success', methods = ['POST'])  
+def success():  
+    if request.method == 'POST':  
+        f = request.files['file']  
+        
+        f.save(DATA_FOLDER+f.filename)  
+        return render_template("success.html", name = f.filename)  
+  
+if __name__ == '__main__':  
+    app.run(debug = True)  
