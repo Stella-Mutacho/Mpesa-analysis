@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="site-header-logo">
+        <h1 class="text-center">
+            MpesaAnalysis
+        </h1>
+    </div>
+
+    <div class="row p-4"></div>
+    <div class="card mb-4 m-auto" style="width: 90%;" data-aos="fade-left">
+        
+        <div class="card-body">
+            <img src="{{url_for('static', filename='images/fig1.png') }}" />
+            <p class="card-text">Spending Analysis in accordance with your transactions summary in the past 6 months</p>
+        </div>
+    </div>
+
+        <div class="card mb-4 m-auto" style="width: 90%;" data-aos="fade-left">
+            <div class="card-body">
+                <img src="{{url_for('static', filename='images/fig2.png') }}" />
+                <p class="card-text">
+                    Your Cash flow from different sources on Mpesa
+                </p>
+            </div>
+        </div>
+        <div class="card mb-4 m-auto" style="width: 90%;" data-aos="fade-right">
+            <div class="card-body">
+                <img src="{{url_for('static', filename='images/fig3.png') }}" />
+                <p class="card-text">Transactions bringing Money into your mpesa in different months</p>
+            </div>
+        </div>
+
+        <div class="card mb-4 m-auto" style="width: 90%;" data-aos="slide-up">
+            <div class="card-body">
+                <img src="{{url_for('static', filename='images/fig4.png') }}" />
+                <p class="card-text">Monthly analysis of withdrawals </p>
+            </div>
+            </div>
+        </div>
+    </div>
+    
+
+{% endblock %}
