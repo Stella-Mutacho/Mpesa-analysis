@@ -7,17 +7,33 @@ import plotly.express as px
 import os
 from flask import request
 import sys
+import webbrowser
+import logging
 
 
 IMAGE_FOLDER= os.path.join('static', 'images')
-DATA_FOLDER=os.path.join("../../data/")
+DATA_FOLDER=os.path.join("/home/stella/Documents/Interviews/mpesa2/Mpesa-analysis/data/")
 app.config['UPLOAD_FOLDER']=IMAGE_FOLDER
 app.config['DATA_FOLDER']=DATA_FOLDER
 
 
-@app.route('/')
+
+@app.route('/', methods=['POST', 'GET'])
 def index():
     return render_template('index.html')
+
+
+@app.route('/attachment')
+def getattachment():
+    
+    oldurl = os.system('python3 getAttachment.py')
+    logging.info({oldurl})
+    
+    url= os.popen('cat',oldurl).read()
+    webbrowser.open( str(url),new=0, autoraise=True)
+    return  
+    
+        
 
 @app.route('/chart1')
 def chart1():
@@ -51,7 +67,9 @@ def success():
         f = request.files['file']  
         
         f.save(DATA_FOLDER+f.filename)  
-        return render_template("success.html", name = f.filename)  
+        return render_template("success.html", name = f.filename) 
+
+ 
   
 if __name__ == '__main__':  
     app.run(debug = True)  
