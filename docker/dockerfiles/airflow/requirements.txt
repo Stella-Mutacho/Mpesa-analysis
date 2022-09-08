@@ -4,3 +4,8 @@ jinja2==2.10.2
 text-unidecode==1.2
 mysql-connector-python==8.0.29
 redash-toolbelt==0.1.9
+tabula-py==2.5.1 
+pandas
+plotly==5.10.0
+kaleido
+nbformat
